@@ -10,10 +10,14 @@ import { SettingsObject } from '../types';
 
 
 function adminHomePageRoute():string {
+    // The next line calls a function in a module that has not been updated to TS yet
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     return ((meta.config.homePageRoute === 'custom' ? meta.config.homePageCustom : meta.config.homePageRoute) || 'categories').replace(/^\//, '') as string;
 }
 
 async function getUserHomeRoute(uid : number) : Promise<string> {
+    // The next line calls a function in a module that has not been updated to TS yet
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     const settings : SettingsObject = await user.getSettings(uid) as SettingsObject;
     let route : string = adminHomePageRoute();
 
@@ -30,6 +34,8 @@ export async function rewrite(req: Request & { uid: number }, res : Response, ne
     }
 
     let route : string = adminHomePageRoute();
+    // The next line calls a function in a module that has not been updated to TS yet
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     if (meta.config.allowUserHomePage) {
         route = await getUserHomeRoute(req.uid);
     }
