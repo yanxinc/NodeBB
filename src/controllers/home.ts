@@ -8,6 +8,9 @@ import user from '../user';
 
 import { SettingsObject } from '../types';
 
+type Locals = {
+    homePageRoute: string;
+}
 
 function adminHomePageRoute():string {
     // The next line calls a function in a module that has not been updated to TS yet
@@ -60,12 +63,12 @@ export async function rewrite(req: Request & { uid: number }, res : Response, ne
     next();
 }
 
-export function pluginHook(req: Request, res : Response, next: NextFunction):void {
+export function pluginHook(req: Request, res : Response<object, Locals>, next: NextFunction):void {
     const hook = `action:homepage.get:${res.locals.homePageRoute}`;
 
     plugins.hooks.fire(hook, {
         req: req,
         res: res,
         next: next,
-    });
+    }) as void;
 }
